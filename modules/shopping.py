@@ -74,6 +74,7 @@ def Shopping_car():
 
 
 '''购物记录'''
+
 def Shoppingcar_record(current_user,value):
     with open(__db_shopping_record,"r+") as f_shoppingcar_record:
         record_dict = json.loads(f_shoppingcar_record.read())
