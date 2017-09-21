@@ -90,12 +90,3 @@ def Shoppingcar_record(current_user,value):
         f_shoppingcar_record.seek(0)
         f_shoppingcar_record.truncate(0)
         f_shoppingcar_record.write(dict)
-
-
-
-
-
-
-
-
-
