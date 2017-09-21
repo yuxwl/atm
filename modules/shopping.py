@@ -54,7 +54,6 @@ def Empty_shopping_car():
         f_shopping_car.write(list)
 
 
-
 '''购物车'''
 def Shopping_car():
     while True:
