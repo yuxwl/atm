@@ -76,8 +76,8 @@ ATM记录操作日志
                购物记录用时间进行分割进行显示,按b返回
             2) 输入2,加载shopping.Updata_password(current_user)函数,选择是否对密码修改,输入y,输入账号原来的密码,
                匹配成功,输入新的密码,再次输入新的密码,两次密码匹配成功,修改成功,否则修改失败;按b返回
-            3) 输入3,加载shopping.Updata_address(current_user)函数,选择是否对收货地址进行修改,输入y,输入新的地址,
-               保存默认地址为none,按b返回
+            3) 输入3,加载shopping.Updata_address(current_user)函数,选择是否对收货地址进行修改,输入y,
+               输入新的地址,保存默认地址为none,按b返回
             4) 输入4,加载shopping.Link_creditcard(current_user)函数,选择是否进行信用卡绑定,默认为为绑定;
                选择y,输入信用卡卡号,加载信用卡数据库进行匹配,如果信用卡存在绑定成功,否则失败,按b返回
             5) 输入b,返回上一级
