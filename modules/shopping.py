@@ -18,14 +18,14 @@ def Shopping_mall():
         for item in f_product:
             pro_list.append(item.strip("\n").split())
 
-    def pro_inf():
+    def pro_info():
         print ("编号\t\t商品\t\t价格")
         for index,item in enumerate(pro_list):
             print ("%s\t\t%s\t\t%s" %(index,item[0],item[1]))
 
     while True:
         print (("\33[31;0m目前商城在售的商品信息\33[0m").center(40,"-"))
-        pro_inf()
+        pro_info()
         choice_id = input("\n\33[34;0m选择要购买的商品编号 【购买 ID】/【返回 b】\33[0m")
         if choice_id.isdigit():
             choice_id = int(choice_id)
@@ -219,7 +219,6 @@ def Link_creditcard(current_user):
 
 
 '''修改登录密码'''
-
 def Updata_password(current_user):
     while True:
         print ("\33[32;0m修改登录密码\33[0m".center(40,"-"))

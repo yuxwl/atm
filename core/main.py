@@ -23,7 +23,67 @@ while True:
         if res != None:
             if res[0] == "True":
                 current_user = res[1]
-                shopping.Shopping_mall()
+                shopping.Empty_shopping_car()
+                while True:
+                    print ("\33[36;0m欢迎进入购物中心\33[0m".center(50,"*"),
+                           "\n1 购物商场\n"
+                           "2 查看购物车\n"
+                           "3 购物结算\n"
+                           "4 个人中心\n"
+                           "b 返回\n"
+                           )
+                    choice_id = input("\33[34;0m选择要进入模式的ID\33[0m:")
+                    if choice_id == "1":
+                        shopping.Shopping_mall()
+                    elif choice_id == "2":
+                        shopping.Shopping_car()
+                    elif choice_id == "3":
+                        shopping.Pay_shopping(current_user)
+                    elif choice_id=="4":
+                        while True:
+                            print ("\33[33;0m个人中心\33[0m".center(50,"*"),
+                                  "\n1 购物历史记录\n"
+                                  "\n2 修改登录密码\n"
+                                  "\n3 修改个人信息\n"
+                                  "\n4 修改信用卡绑定\n"
+                                  "b 返回\n")
+                            choice_id = input("\33[34;0m选择要进入模式的ID\33[0m:")
+                            if choice_id =="1":
+                                shopping.Catcar_record(current_user)
+                            elif choice_id =="2":
+                                shopping.Updata_password(current_user)
+                            elif choice_id == "3":
+                                shopping.Updata_address(current_user)
+                            elif choice_id =="b":
+                                break
+                            else:
+                                print ("\33[31;0m输入的ID无效,请重新输入\33[0m")
+                    elif choice_id == "b":
+                        break
+                    else:
+                        print ("\33[31;0m输入的ID无效,请重新输入\33[0m")
+
+
+    elif choice_id =="2":
+        res = authentication.creditcard_auth()
+        if res != "None":
+            if res[0] =="True":
+                current_user = res[1]
+                while True:
+                    print ("\33[36;0m信用卡中心\33[0m".center(50,"*"),
+                           "\n1 我的信用卡\n"
+                           "2 提现\n"
+                           "3 转账\n"
+                           "4 还款\n"
+                           "5 流水记录\n"
+                           "b 返回\n")
+                    choice_id = input("\33[34;0m选择要进入模式的ID\33[0m:")
+                    if choice_id == "1":
+                        creditcard.
+
+
+
+
 
 
 
