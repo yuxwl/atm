@@ -155,7 +155,8 @@ def Transfer(current_creditcard):
                             print ("\33[31;0m输入银行卡卡号不存在\33[0m")
                     else:
                         print("\33[31;0m输入银行卡有误\33[0m")
-
+                else:
+                    print("\33[31;0m输入银行卡有误\33[0m")
         if if_trans =="b":
             break
 

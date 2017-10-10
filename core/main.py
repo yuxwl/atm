@@ -79,7 +79,7 @@ while True:
                            "b 返回\n")
                     choice_id = input("\33[34;0m选择要进入模式的ID\33[0m:")
                     if choice_id == "1":
-                        creditcard.
+                        creditcard.My
 
 
 
