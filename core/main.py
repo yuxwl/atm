@@ -68,7 +68,7 @@ while True:
         res = authentication.creditcard_auth()
         if res != "None":
             if res[0] =="True":
-                current_user = res[1]
+                current_creditcard = res[1]
                 while True:
                     print ("\33[36;0m信用卡中心\33[0m".center(50,"*"),
                            "\n1 我的信用卡\n"
@@ -79,7 +79,61 @@ while True:
                            "b 返回\n")
                     choice_id = input("\33[34;0m选择要进入模式的ID\33[0m:")
                     if choice_id == "1":
-                        creditcard.My
+                        creditcard.My_creditcard(current_creditcard)
+                    elif choice_id == "2":
+                        creditcard.Cash_advance(current_creditcard)
+                    elif choice_id == "3":
+                        creditcard.Transfer(current_creditcard)
+                    elif choice_id == "4":
+                        creditcard.Repayment(current_creditcard)
+                    elif choice_id == "5":
+                        creditcard.Catcard_record(current_creditcard)
+                    elif choice_id == "b":
+                        break
+                    else:
+                        print ("\33[31;0m输入的ID无效,请重新选择\33[0m")
+
+    elif choice_id == "3":
+        res = authentication.admincenter_auth()
+        if res != None:
+            while True:
+                print ("\33[36;1m管理中心\33[0m".center(50,"*"),
+                       "\n1 创建账号\n"
+                       "2 锁定账号\n"
+                       "3 解锁账号\n"
+                       "4 发行信用卡\n"
+                       "5 冻结信用卡\n"
+                       "6 解冻信用卡\n"
+                       "7 提升信用卡额度\n"
+                       "b 返回\n")
+                choice_id = input("\33[34;0m选择要进入的模式的ID\33[0m: ")
+                if choice_id == "1":
+                    admincenter.User_create()
+                elif choice_id == "2":
+                    admincenter.Lock_user()
+                elif choice_id == "3":
+                    admincenter.Unlock_user()
+                elif choice_id == "4":
+                    admincenter.Creditcard_create()
+                elif choice_id == "5":
+                    admincenter.Lock_creditcard()
+                elif choice_id == "6":
+                    admincenter.Unlock_creditcard()
+                elif choice_id == "7":
+                    admincenter.Updata_limit()
+                elif choice_id == "b":
+                    break
+                else:
+                    print ("\33[31;0m输入的ID无效,请重新选择\33[0m")
+    elif choice_id == "q":
+        break
+
+    else:
+        print ("\33[31;0m输入的ID无效,请重新选择\33[0m")
+
+
+
+
 
 
 

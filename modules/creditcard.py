@@ -161,3 +161,55 @@ def Transfer(current_creditcard):
             break
 
 
+'''还款'''
+def Repayment(current_creditcard):
+    while True:
+        print ("\33[32;0m还款\33[0m".center(40,"-"))
+        if_repay = input("\n\33[34;0m是否进行还款 确定【y】/返回【b】\33[0m")
+        if if_repay == "y":
+            repay_cash = input("\33[34;0m输入要还款的金额\33[0m:")
+            if repay_cash.isdigit():
+                repay_cash = int(repay_cash)
+                with open(__db_creditcard_dict,"r+") as f_creditcard_dict:
+                    creditcard_dict = json.loads(f_creditcard_dict.read())
+                    limit = creditcard_dict[current_creditcard]["limit"]
+                    limit = limit + repay_cash
+                    creditcard_dict[current_creditcard]["limit"] = limit
+                    f_creditcard_dict.seek(0)
+                    f_creditcard_dict.truncate(0)
+                    dict = json.dump(creditcard_dict)
+                    f_creditcard_dict.write(dict)
+                    record = "\33[31;1m信用卡 %s 还款金额 ￥%s 还款成功\33[0m" %(current_creditcard,repay_cash)
+                    print (record,"\n")
+                    Creditcard_record(current_creditcard,record)
+            else:
+                print ("\33[31;0m输入金额格式有误\33[0m")
+
+        if if_repay == "b":
+            break
+
+'''查看信用卡流水'''
+def Catcard_record(current_creditcard):
+    while True:
+        print ("\33[32;0m信用卡流水单\33[0m".center(40,"-"))
+        with open(__db_creditcard_record,"r+") as f_creditcard_record:
+            f_creditcard_record.seek(0)
+            record_dict = json.loads(f_creditcard_record.read())
+            print ("\33[34;0m流水单日期\33[0m")
+            if current_creditcard in record_dict.keys():
+                for key in record_dict[current_creditcard]:
+                    print (key)
+                date = input("\n\33[34;0m流水单查询 返回【b】/ 输入流水单的日期【2017-10-11】\33[0m: ")
+                if date == "b":
+                    break
+                if date in record_dict[current_creditcard].keys():
+                    keys = sorted(record_dict[current_creditcard][date])
+                    print ("\33[31;0m当前信用卡【%s】交易记录->> \33[0m"%(current_creditcard))
+                    for key in keys:
+                        print ("\33[31;0m时间: %s %s\33[0m"%(key,record_dict[current_creditcard][date][key]))
+                    print ("")
+                else:
+                    print ("\33[33;0m输入的日期有误\33[0m\n")
+            else:
+                print ("\33[33;0m信用卡 %s 还没有进行消费\33[0m\n"%(current_creditcard))
+                break
