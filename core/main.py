@@ -41,11 +41,11 @@ while True:
                         shopping.Pay_shopping(current_user)
                     elif choice_id=="4":
                         while True:
-                            print ("\33[33;0m个人中心\33[0m".center(50,"*"),
+                            print ("\33[33;1m个人中心\33[0m".center(50,"*"),
                                   "\n1 购物历史记录\n"
-                                  "\n2 修改登录密码\n"
-                                  "\n3 修改个人信息\n"
-                                  "\n4 修改信用卡绑定\n"
+                                  "2 修改登录密码\n"
+                                  "3 修改个人信息\n"
+                                  "4 修改信用卡绑定\n"
                                   "b 返回\n")
                             choice_id = input("\33[34;0m选择要进入模式的ID\33[0m:")
                             if choice_id =="1":
@@ -54,6 +54,8 @@ while True:
                                 shopping.Updata_password(current_user)
                             elif choice_id == "3":
                                 shopping.Updata_address(current_user)
+                            elif choice_id == "4":
+                                shopping.Link_creditcard(current_user)
                             elif choice_id =="b":
                                 break
                             else:
@@ -66,7 +68,8 @@ while True:
 
     elif choice_id =="2":
         res = authentication.creditcard_auth()
-        if res != "None":
+        print (res)
+        if res != None:
             if res[0] =="True":
                 current_creditcard = res[1]
                 while True:

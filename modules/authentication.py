@@ -6,7 +6,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 '''数据库文件相对路径'''
 __db_users_dict = BASE_DIR + r"\database\users_dict"
-__db_creditcart_dict = BASE_DIR + r"\database\creditcart_dict"
+__db_creditcard_dict = BASE_DIR + r"\database\creditcard_dict"
+
 
 '''认证装饰器'''
 def auth(auth_type):
@@ -17,7 +18,7 @@ def auth(auth_type):
                 username = input("\33[34;0m请输入用户名: \33[0m")
                 password = input("\33[34;0m请输入密码: \33[0m")
                 if len(username.strip()) > 0:
-                    with open(__db_creditcart_dict,"r+") as f_users_dict:
+                    with open(__db_users_dict,"r+") as f_users_dict:
                         users_dict = json.loads(f_users_dict.read())
                         if username in users_dict.keys():
                             if password == users_dict[username]["password"]:
@@ -37,10 +38,10 @@ def auth(auth_type):
         if auth_type == "creditcard_auth":
             def wrapper():
                 res = func()
-                creditcard = input("\33[31;0m输入信用卡卡号(6位数字): \33[0m")
-                password = input("\33[31;0m输入信用卡密码: \33[0m")
+                creditcard = input("\33[34;0m输入信用卡卡号(6位数字): \33[0m")
+                password = input("\33[34;0m输入信用卡密码: \33[0m")
                 if len(creditcard.strip()) > 0:
-                    with open(__db_creditcart_dict,"r+") as f_creditcard_dict:
+                    with open(__db_creditcard_dict,"r+") as f_creditcard_dict:
                         creditcard_dict = json.loads(f_creditcard_dict.read())
                         if creditcard in creditcard_dict.keys():
                             if password == creditcard_dict[creditcard]["password"]:
@@ -55,7 +56,7 @@ def auth(auth_type):
                             print ("\33[31;0m输入的信用卡卡号不存在,认证失败\33[0m")
                 else:
                     print ("\33[31;0m输入的信用卡号为空,认证失败\33[0m")
-            return wrapper()
+            return wrapper
 
         if auth_type == "admincenter_auth":
             def wrapper():

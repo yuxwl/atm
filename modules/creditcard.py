@@ -21,7 +21,7 @@ def My_creditcard(current_creditcard):
         print ("\33[32;0m我的信用卡信息\33[0m".center(40,"-"))
         with open(__db_creditcard_dict,"r+") as f_creditcard_dict:
             creditcard_dict = json.loads(f_creditcard_dict.read())
-            print ("卡号:\t【%s】\n额度:\t【￥%s】\n提现额度:\t【￥%s】\n持卡人:\t【%s】\n"%(current_creditcard,creditcard_dict[current_creditcard]["limit"],
+            print ("卡号:\t\t【%s】\n额度:\t\t【￥%s】\n提现额度:\t\t【￥%s】\n持卡人:\t\t【%s】\n"%(current_creditcard,creditcard_dict[current_creditcard]["limit"],
             creditcard_dict[current_creditcard]["limitcash"],
             creditcard_dict[current_creditcard]["personinfo"]))
             if_back = input("\33[34;0m是否退出 返回【b】\33[0m:")
@@ -85,7 +85,7 @@ def Cash_advance(current_creditcard):
                     break
 
             if limit < limitcash:
-                print ("可提现金额:\t￥【%s】\n" %(int(limit*0.95)))
+                print ("可提现金额:\t【￥%s】\n" %(int(limit*0.95)))
                 details_tip()
                 if_adv = input("\33[34;0m是否进行提现 确定【y】/返回【b】\33[0m: ")
                 if if_adv == "y":
@@ -135,8 +135,8 @@ def Transfer(current_creditcard):
                                 if transfer_cash.isdigit():
                                     transfer_cash = int(transfer_cash)
                                     if transfer_cash <= current_limit:
-                                        transfer_limit = creditcard_dict[current_creditcard]["limit"]
-                                        creditcard_dict[current_creditcard]["limit"] = current_creditcard - transfer_cash
+                                        transfer_limit = creditcard_dict[transfer_credticard]["limit"]
+                                        creditcard_dict[current_creditcard]["limit"] = current_limit - transfer_cash
                                         creditcard_dict[transfer_credticard]["limit"] = transfer_limit + transfer_cash
                                         f_creditcard_dict.seek(0)
                                         f_creditcard_dict.truncate(0)
@@ -146,7 +146,7 @@ def Transfer(current_creditcard):
                                         print (record,"\n")
                                         Creditcard_record(current_creditcard,record)
                                     else:
-                                        print ("\31[33;0m金额不足 转账失败\33[0m\n")
+                                        print ("\33[33;0m金额不足 转账失败\33[0m\n")
                                 else:
                                     print ("\33[31;0m输入金额有误\33[0m")
                             else:
@@ -177,14 +177,13 @@ def Repayment(current_creditcard):
                     creditcard_dict[current_creditcard]["limit"] = limit
                     f_creditcard_dict.seek(0)
                     f_creditcard_dict.truncate(0)
-                    dict = json.dump(creditcard_dict)
+                    dict = json.dumps(creditcard_dict)
                     f_creditcard_dict.write(dict)
                     record = "\33[31;1m信用卡 %s 还款金额 ￥%s 还款成功\33[0m" %(current_creditcard,repay_cash)
                     print (record,"\n")
                     Creditcard_record(current_creditcard,record)
             else:
                 print ("\33[31;0m输入金额格式有误\33[0m")
-
         if if_repay == "b":
             break
 

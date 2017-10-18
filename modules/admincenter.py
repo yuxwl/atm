@@ -79,7 +79,7 @@ def Creditcard_create(limit=15000,locked=0):
 def Lock_user():
     while True:
         print ("\33[33;0m锁定用户\33[0m".center(50,"-"))
-        with open (__db_creditcard_dict,"r+") as f_users_dict:
+        with open (__db_users_dict,"r+") as f_users_dict:
             users_dict = json.loads(f_users_dict.read())
             for key in users_dict:
                 if users_dict[key]["locked"] ==0:
@@ -91,7 +91,7 @@ def Lock_user():
                 lock_user = input("\33[34;0m 输入要锁定的用户名\33[0m: ")
                 if lock_user in users_dict.keys():
                     if users_dict[lock_user]["locked"] == 0:
-                        users_dict[lock_user]["lokced"] =1
+                        users_dict[lock_user]["locked"] =1
                         dict = json.dumps(users_dict)
                         f_users_dict.seek(0)
                         f_users_dict.truncate(0)
@@ -114,25 +114,25 @@ def Unlock_user():
                 if users_dict[key]["locked"] == 0:
                     print ("系统用户 【%s】\t\t锁定状态: 【未锁定】" %(key))
                 else:
-                    print ("系统用户 【%s】\t\t锁定状态: \33[7m \33【已锁定】")
+                    print ("系统用户 【%s】\t\t锁定状态: \33[7m【已锁定】\33[0m" %(key))
 
-        if_lock = input("\33[34;0m是否进行用户解锁 确定【y】/返回【b】\33[0m: ")
-        if if_lock == "y":
-            unlock_user = input("\33[34;0m输入要解锁的用户名: \33[0m")
-            if unlock_user in users_dict.keys():
-                if users_dict[unlock_user]["locked"] ==1:
-                    users_dict[unlock_user]["locked"] =0
-                    dict= json.dumps(users_dict)
-                    f_users_dict.seek(0)
-                    f_users_dict.truncate(0)
-                    f_users_dict.write(dict)
-                    print ("\33[31;0m用户 %s 解锁成功\33[0m\n" %(unlock_user))
+            if_lock = input("\33[34;0m是否进行用户解锁 确定【y】/返回【b】\33[0m: ")
+            if if_lock == "y":
+                unlock_user = input("\33[34;0m输入要解锁的用户名: \33[0m")
+                if unlock_user in users_dict.keys():
+                    if users_dict[unlock_user]["locked"] ==1:
+                        users_dict[unlock_user]["locked"] = 0
+                        dict= json.dumps(users_dict)
+                        f_users_dict.seek(0)
+                        f_users_dict.truncate(0)
+                        f_users_dict.write(dict)
+                        print ("\33[31;0m用户 %s 解锁成功\33[0m\n" %(unlock_user))
+                    else:
+                        print ("\33[31;0m用户 %s 解决失败,用户未被锁定\33[0m\n" %(unlock_user))
                 else:
-                    print ("\33[31;0m用户 %s 解决失败,用户未被锁定\33[0m\n" %(unlock_user))
-            else:
-                print ("\33[31;0m用户 %s 不存在  \33[0m\n" %(unlock_user))
-        if if_lock == "b":
-            break
+                    print ("\33[31;0m用户 %s 不存在  \33[0m\n" %(unlock_user))
+            if if_lock == "b":
+                break
 
 '''冻结信用卡'''
 def Lock_creditcard():
@@ -144,7 +144,7 @@ def Lock_creditcard():
                 if creditcard_dict[key]["locked"] == 0:
                     print ("信用卡 【%s】\t\t冻结状态: 【未冻结】"%(key))
                 else:
-                    print ("信用卡 【%s】\t\t冻结状态:\33[7m【已冻结】\33" %(key))
+                    print ("信用卡 【%s】\t\t冻结状态:\33[7m 【已冻结】\33[0m" %(key))
             if_Unlock = input("\n\33[34;0m是否进行信用卡冻结 确定【y】/返回【b】\33[0m")
             if if_Unlock == "y":
                 creditcard = input("\33[33;0m输入要冻结的信用卡卡号\33[0m: ")
@@ -172,7 +172,7 @@ def Unlock_creditcard():
             creditcard_dict = json.loads(f_creditcard_dict.read())
             for key in creditcard_dict:
                 if creditcard_dict[key]["locked"] == 0:
-                    print ("信用卡 【%s】\t\t冻结状态: 【未冻结】" %key())
+                    print ("信用卡 【%s】\t\t冻结状态: 【未冻结】"%(key))
                 else:
                     print ("信用卡 【%s】\t\t冻结状态: \33[7m【已冻结】\33[0m" %(key))
             if_Unlock = input("\n\33[34;0m是否进行信用卡解冻 确定【y】/返回【b】\33[0m: ")
@@ -199,35 +199,35 @@ def Updata_limit():
         print ("\33[32;0m修改信用卡额度\33[0m".center(70,"-"))
         with open (__db_creditcard_dict,"r+") as f_creditcard_dict:
             creditcard_dict = json.loads(f_creditcard_dict.read())
-        for key in creditcard_dict:
-            limitcash = creditcard_dict[key]["limitcash"]
-            print ("信用卡 【%s】 \t目前可用额度: 【￥%s】\t取现额度: 【￥%s】" %(key,creditcard_dict[key]["limit"],limitcash))
-        if_Updata = input("\n\33[34;0m是否进行信用卡额度调整 确定【y】/返回【b】\33[0m: ")
-        if if_Updata == "y":
-            creditcard = input("\33[34;0m输入要修改额度的信用卡卡号\33[0m: ")
-            if creditcard in creditcard_dict.keys():
-                limit = input("\33[34;0m输入修改后的金额(至少￥5000)\33[0m")
-                if limit.isdigit():
-                    limit_default = creditcard_dict[creditcard]["deflimit"]
-                    limit = int(limit)
-                    if limit >=5000:
-                        updata = limit - limit_default
-                        creditcard_dict[creditcard]["limit"] += updata
-                        creditcard_dict[creditcard]["limitcash"] += updata//2
-                        creditcard_dict[creditcard]["deflimit"] = limit
-                        dict  = json.dumps(creditcard_dict)
-                        f_creditcard_dict.seek(0)
-                        f_creditcard_dict.truncate(0)
-                        f_creditcard_dict.write(dict)
-                        print ("\33[31;1m信用卡 %s 额度修改成功 额度%s \33[0m\n" %(creditcard,limit))
+            for key in creditcard_dict:
+                limitcash = creditcard_dict[key]["limitcash"]
+                print ("信用卡 【%s】 \t目前可用额度: 【￥%s】\t取现额度: 【￥%s】" %(key,creditcard_dict[key]["limit"],limitcash))
+            if_Updata = input("\n\33[34;0m是否进行信用卡额度调整 确定【y】/返回【b】\33[0m: ")
+            if if_Updata == "y":
+                creditcard = input("\33[34;0m输入要修改额度的信用卡卡号\33[0m: ")
+                if creditcard in creditcard_dict.keys():
+                    limit = input("\33[34;0m输入修改后的金额(至少￥5000)\33[0m")
+                    if limit.isdigit():
+                        limit_default = creditcard_dict[creditcard]["deflimit"]
+                        limit = int(limit)
+                        if limit >=5000:
+                            updata = limit - limit_default
+                            creditcard_dict[creditcard]["limit"] += updata
+                            creditcard_dict[creditcard]["limitcash"] += updata//2
+                            creditcard_dict[creditcard]["deflimit"] = limit
+                            dict  = json.dumps(creditcard_dict)
+                            f_creditcard_dict.seek(0)
+                            f_creditcard_dict.truncate(0)
+                            f_creditcard_dict.write(dict)
+                            print ("\33[31;1m信用卡 %s 额度修改成功 额度%s \33[0m\n" %(creditcard,limit))
+                        else:
+                            print ("\33[31;0m输入的金额 ￥%s 小于 ￥5000\33[0m\n" %(limit))
                     else:
-                        print ("\33[31;0m输入的金额 ￥%s 小于 ￥5000\33[0m\n" %(limit))
+                        print ("\33[31;0m输入金额 ￥%s 格式错误\33[0m\n" %(limit))
                 else:
-                    print ("\33[31;0m输入金额 ￥%s 格式错误\33[0m\n" %(limit))
-            else:
-                print ("\33[31;0m信用卡 【%s】不存在\33[0m" %(creditcard))
-        if if_Updata == "b":
-            break
+                    print ("\33[31;0m信用卡 【%s】不存在\33[0m" %(creditcard))
+            if if_Updata == "b":
+                break
 
 
 
